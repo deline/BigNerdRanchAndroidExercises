@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">GeoQuiz</string>
+    <string name="question_text">C​o​n​s​t​a​n​t​i​n​o​p​l​e​ ​i​s​ ​t​h​e​ ​l​a​r​g​e​s​t​ ​c​i​t​y​ ​i​n​ ​T​u​r​k​e​y​.​</string>
+    <string name="true_button">True</string>
+    <string name="false_button">False</string>
+    <string name="correct_toast">Correct!</string>
+    <string name="incorrect">Incorrect!</string>
+</resources>
