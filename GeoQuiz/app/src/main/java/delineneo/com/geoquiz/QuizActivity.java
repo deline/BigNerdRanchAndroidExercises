@@ -3,6 +3,7 @@ package delineneo.com.geoquiz;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,38 +33,48 @@ public class QuizActivity extends AppCompatActivity {
         trueButton = (Button) findViewById(R.id.true_button);
         falseButton = (Button) findViewById(R.id.false_button);
         nextButton = (Button) findViewById(R.id.next_button);
-
         questionTextView = (TextView) findViewById(R.id.question_text_view);
+
         updateQuestion();
 
-        trueButton.setOnClickListener(new View.OnClickListener() {
+        trueButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 checkAnswer(true);
             }
         });
 
-        falseButton.setOnClickListener(new View.OnClickListener() {
+        falseButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 checkAnswer(false);
             }
         });
 
-        nextButton.setOnClickListener(new View.OnClickListener() {
+        nextButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentIndex = (currentIndex + 1) % questionBank.length;
-                updateQuestion();
+                nextQuestion();
             }
         });
+
+        questionTextView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nextQuestion();
+            }
+        });
+    }
+
+    private void nextQuestion() {
+        currentIndex = (currentIndex + 1) % questionBank.length;
+        updateQuestion();
     }
 
     private void updateQuestion() {
         int questionTextResourceId = questionBank[currentIndex].getTextResourceId();
         questionTextView.setText(questionTextResourceId);
     }
-
 
     private void checkAnswer(boolean userPressedTrue) {
         boolean answerIsTrue = questionBank[currentIndex].isAnswerCorrect();
