@@ -8,11 +8,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static java.lang.Math.abs;
+
 public class QuizActivity extends AppCompatActivity {
 
     private Button trueButton;
     private Button falseButton;
     private Button nextButton;
+    private Button previousButton;
     private TextView questionTextView;
 
     private Question[] questionBank = new Question[]{
@@ -33,6 +36,7 @@ public class QuizActivity extends AppCompatActivity {
         trueButton = (Button) findViewById(R.id.true_button);
         falseButton = (Button) findViewById(R.id.false_button);
         nextButton = (Button) findViewById(R.id.next_button);
+        previousButton = (Button) findViewById(R.id.previous_button);
         questionTextView = (TextView) findViewById(R.id.question_text_view);
 
         updateQuestion();
@@ -58,6 +62,13 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
+        previousButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                previousQuestion();
+            }
+        });
+
         questionTextView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,18 +77,23 @@ public class QuizActivity extends AppCompatActivity {
         });
     }
 
+    private void previousQuestion() {
+        currentIndex = (currentIndex - 1) % questionBank.length;
+        updateQuestion();
+    }
+
     private void nextQuestion() {
         currentIndex = (currentIndex + 1) % questionBank.length;
         updateQuestion();
     }
 
     private void updateQuestion() {
-        int questionTextResourceId = questionBank[currentIndex].getTextResourceId();
+        int questionTextResourceId = questionBank[abs(currentIndex)].getTextResourceId();
         questionTextView.setText(questionTextResourceId);
     }
 
     private void checkAnswer(boolean userPressedTrue) {
-        boolean answerIsTrue = questionBank[currentIndex].isAnswerCorrect();
+        boolean answerIsTrue = questionBank[abs(currentIndex)].isAnswerCorrect();
         int messageResId = 0;
 
         if (userPressedTrue == answerIsTrue) {
