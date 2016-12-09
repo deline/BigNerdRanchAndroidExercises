@@ -13,6 +13,8 @@ import static java.lang.Math.abs;
 
 public class QuizActivity extends AppCompatActivity {
 
+    private static final String TAG = QuizActivity.class.getName();
+
     private Button trueButton;
     private Button falseButton;
     private ImageButton nextButton;
